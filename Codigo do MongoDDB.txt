@@ -1,0 +1,155 @@
+use Empresa
+switched to db Empresa
+db.pessoas.insertMany([
+  {
+    nome: "João",
+    idade: 30,
+    cargo: "Engenheiro de Software",
+    cidade: "São Paulo"
+  },
+  {
+    nome: "Maria",
+    idade: 25,
+    cargo: "Designer Gráfico",
+    cidade: "Rio de Janeiro"
+  },
+  {
+    nome: "Carlos",
+    idade: 40,
+    cargo: "Gerente de Vendas",
+    cidade: "Belo Horizonte"
+  },
+  {
+    nome: "Ana",
+    idade: 28,
+    cargo: "Analista de Marketing",
+    cidade: "Porto Alegre"
+  },
+  {
+    nome: "Pedro",
+    idade: 35,
+    cargo: "Contador",
+    cidade: "Curitiba"
+  },
+  {
+    nome: "Lúcia",
+    idade: 33,
+    cargo: "Médica",
+    cidade: "Salvador"
+  },
+  {
+    nome: "Fernando",
+    idade: 45,
+    cargo: "Advogado",
+    cidade: "Recife"
+  },
+  {
+    nome: "Mariana",
+    idade: 27,
+    cargo: "Professor",
+    cidade: "Fortaleza"
+  },
+  {
+    nome: "Ricardo",
+    idade: 38,
+    cargo: "Engenheiro Civil",
+    cidade: "Brasília"
+  },
+  {
+    nome: "Isabel",
+    idade: 31,
+    cargo: "Enfermeira",
+    cidade: "Manaus"
+  }
+]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6515ec114b9acc987113219b"),
+    '1': ObjectId("6515ec114b9acc987113219c"),
+    '2': ObjectId("6515ec114b9acc987113219d"),
+    '3': ObjectId("6515ec114b9acc987113219e"),
+    '4': ObjectId("6515ec114b9acc987113219f"),
+    '5': ObjectId("6515ec114b9acc98711321a0"),
+    '6': ObjectId("6515ec114b9acc98711321a1"),
+    '7': ObjectId("6515ec114b9acc98711321a2"),
+    '8': ObjectId("6515ec114b9acc98711321a3"),
+    '9': ObjectId("6515ec114b9acc98711321a4")
+  }
+}
+db.Pessoa.updateOne({ nome: "João" }, { $set: { endereco: "Rua A, 123" } });
+db.Pessoa.updateOne({ nome: "Maria" }, { $set: { nome: "Maria Silva", endereco: "Av. B, 456" } });
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.Pessoa.find({ idade: { $gt: 25 } }, { _id: 0 })
+db.Pessoa.aggregate([
+  {
+    $group: {
+      _id: "$cidade",
+      mediaIdade: { $avg: "$idade" }
+    }
+  }
+])
+db.Setores.insertMany([
+  {
+    sigla: "TI",
+    descricao: "Tecnologia da Informação",
+    salario: 6000
+  },
+  {
+    sigla: "RH",
+    descricao: "Recursos Humanos",
+    salario: 4500
+  },
+  {
+    sigla: "VEND",
+    descricao: "Vendas",
+    salario: 5500
+  },
+  {
+    sigla: "ADM",
+    descricao: "Administração",
+    salario: 5000
+  }
+]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6515ec534b9acc98711321a5"),
+    '1': ObjectId("6515ec534b9acc98711321a6"),
+    '2': ObjectId("6515ec534b9acc98711321a7"),
+    '3': ObjectId("6515ec534b9acc98711321a8")
+  }
+}
+db.Setores.find().sort({ salario: -1 }).limit(1)
+{
+  _id: ObjectId("6515ec534b9acc98711321a5"),
+  sigla: 'TI',
+  descricao: 'Tecnologia da Informação',
+  salario: 6000
+}
+db.Setores.find().sort({ salario: 1 }).limit(1)
+{
+  _id: ObjectId("6515ec534b9acc98711321a6"),
+  sigla: 'RH',
+  descricao: 'Recursos Humanos',
+  salario: 4500
+}
+db.Setores.aggregate([
+  {
+    $group: {
+      _id: null,
+      mediaSalario: { $avg: "$salario" }
+    }
+  }
+])
+{
+  _id: null,
+  mediaSalario: 5250
+}
+Empresa
